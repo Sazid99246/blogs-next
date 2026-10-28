@@ -15,6 +15,20 @@
       "when": 1793192219219,
       "tag": "0001_amusing_red_wolf",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793200213790,
+      "tag": "0002_loose_zaran",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1793200577213,
+      "tag": "0003_nappy_ink",
+      "breakpoints": true
     }
   ]
 }

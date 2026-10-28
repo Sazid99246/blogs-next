@@ -10,12 +10,14 @@ export const addBlog = async (
   title: string,
   author: string,
   url: string,
+  userId: number,
   likes = 0
 ) => {
   await db.insert(blogs).values({
     title,
     author,
     url,
+    userId,
     likes,
   });
 };
