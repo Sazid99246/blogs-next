@@ -11,7 +11,9 @@ const Blogs = async ({
 }) => {
   const { filter = "" } = await searchParams;
 
-  const blogs = [...getBlogs()]
+  const allBlogs = await getBlogs();
+
+  const blogs = allBlogs
     .filter((blog) =>
       blog.title.toLowerCase().includes(filter.toLowerCase())
     )
