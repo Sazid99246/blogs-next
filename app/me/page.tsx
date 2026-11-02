@@ -7,6 +7,8 @@ import { readingLists, users } from "@/db/schema"
 import { generateToken } from "@/app/actions/users"
 import MarkAsReadButton from "@/app/components/MarkAsReadButton"
 
+export const instant = false
+
 export default async function MePage() {
   const session = await auth()
 
