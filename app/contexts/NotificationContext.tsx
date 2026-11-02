@@ -1,4 +1,3 @@
-
 "use client"
 
 import {
@@ -61,6 +60,7 @@ export const NotificationProvider = ({
       {notification && (
         <div
           role="alert"
+          data-testid="notification"
           className={`fixed right-5 top-5 z-50 max-w-sm rounded-lg px-5 py-4 text-sm font-semibold text-white shadow-lg ${
             notification.type === "success"
               ? "bg-green-600"

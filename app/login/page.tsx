@@ -1,14 +1,15 @@
-
 "use client"
 
 import Link from "next/link"
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
+import { useNotification } from "../contexts/NotificationContext"
 
 export default function LoginPage() {
   const router = useRouter()
   const [error, setError] = useState("")
+  const { showNotification } = useNotification()
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -25,6 +26,7 @@ export default function LoginPage() {
     if (result?.error) {
       setError("Invalid username or password")
     } else {
+      showNotification("Successfully logged in!", "success")
       router.push("/")
       router.refresh()
     }
@@ -60,6 +62,7 @@ export default function LoginPage() {
           {error && (
             <p
               role="alert"
+              data-testid="error-message"
               className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-600"
             >
               {error}
@@ -106,9 +109,10 @@ export default function LoginPage() {
 
           <button
             type="submit"
+            data-testid="login-button"
             className="w-full rounded-lg bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           >
-            Sign in
+            Login
           </button>
 
           <p className="text-center text-sm text-gray-500">

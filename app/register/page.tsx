@@ -64,14 +64,17 @@ const RegisterPage = () => {
               placeholder="Choose a username"
               autoComplete="username"
               required
-              minLength={4}
               defaultValue={state.values?.username}
               aria-invalid={!!state.errors?.username}
               className={inputStyle}
             />
 
             {state.errors?.username && (
-              <p className={errorStyle} role="alert">
+              <p
+                className={errorStyle}
+                role="alert"
+                data-testid="username-error"
+              >
                 {state.errors.username}
               </p>
             )}
@@ -80,7 +83,7 @@ const RegisterPage = () => {
           {/* Name */}
           <div>
             <label htmlFor="name" className={labelStyle}>
-              Full name
+              Name
             </label>
 
             <input
@@ -113,9 +116,13 @@ const RegisterPage = () => {
               className={inputStyle}
             />
 
-            {state.errors?.password && (
-              <p className={errorStyle} role="alert">
-                {state.errors.password}
+            {state.errors?.passwordConfirm && (
+              <p
+                className={errorStyle}
+                role="alert"
+                data-testid="passwordConfirm-error"
+              >
+                {state.errors.passwordConfirm}
               </p>
             )}
           </div>
@@ -123,7 +130,7 @@ const RegisterPage = () => {
           {/* Confirm password */}
           <div>
             <label htmlFor="passwordConfirm" className={labelStyle}>
-              Confirm password
+              Confirm Password
             </label>
 
             <input
@@ -147,6 +154,7 @@ const RegisterPage = () => {
           {/* Submit */}
           <button
             type="submit"
+            data-testid="register-button"
             className="w-full rounded-lg bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           >
             Create account

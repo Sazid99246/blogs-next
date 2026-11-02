@@ -34,6 +34,7 @@ const AddToReadingListButton = ({
       onClick={handleAdd}
       disabled={isPending}
       className="rounded-lg bg-indigo-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
+      data-testid="add-to-reading-list-button"
     >
       {isPending ? "Adding..." : "Add to reading list"}
     </button>

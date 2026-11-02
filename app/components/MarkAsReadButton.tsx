@@ -18,6 +18,7 @@ const MarkAsReadButton = ({
 
   return (
     <button
+      data-testid={`mark-read-${blogId}`}
       type="button"
       onClick={handleMarkAsRead}
       disabled={isPending}

@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useActionState, useEffect } from "react"
@@ -20,14 +21,14 @@ const NewBlog = () => {
 
   useEffect(() => {
     if (state.success) {
-        showNotification(state.success, "success")
-        router.push("/blogs")
+      showNotification(state.success, "success")
+      router.push("/blogs")
     }
 
     if (state.error) {
-        showNotification(state.error, "error")
+      showNotification(state.error, "error")
     }
-    }, [state.success, state.error, showNotification, router])
+  }, [state.success, state.error, showNotification, router])
 
   const inputStyle =
     "mt-2 w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
@@ -41,8 +42,6 @@ const NewBlog = () => {
   return (
     <main className="min-h-screen bg-gray-50 px-6 py-12">
       <div className="mx-auto max-w-2xl">
-
-        {/* Page heading */}
         <div className="mb-8">
           <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-indigo-600">
             Share your knowledge
@@ -57,16 +56,13 @@ const NewBlog = () => {
           </p>
         </div>
 
-        {/* Blog creation form */}
         <form
           action={formAction}
           className="space-y-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8"
         >
-
-          {/* Title */}
           <div>
             <label htmlFor="title" className={labelStyle}>
-              Blog Title
+              Title
             </label>
 
             <input
@@ -77,7 +73,9 @@ const NewBlog = () => {
               defaultValue={state.values?.title}
               required
               aria-invalid={!!state.errors?.title}
-              aria-describedby={state.errors?.title ? "title-error" : undefined}
+              aria-describedby={
+                state.errors?.title ? "title-error" : undefined
+              }
               className={inputStyle}
             />
 
@@ -88,7 +86,6 @@ const NewBlog = () => {
             )}
           </div>
 
-          {/* Author */}
           <div>
             <label htmlFor="author" className={labelStyle}>
               Author
@@ -102,7 +99,9 @@ const NewBlog = () => {
               defaultValue={state.values?.author}
               required
               aria-invalid={!!state.errors?.author}
-              aria-describedby={state.errors?.author ? "author-error" : undefined}
+              aria-describedby={
+                state.errors?.author ? "author-error" : undefined
+              }
               className={inputStyle}
             />
 
@@ -113,10 +112,9 @@ const NewBlog = () => {
             )}
           </div>
 
-          {/* URL */}
           <div>
             <label htmlFor="url" className={labelStyle}>
-              Blog URL
+              URL
             </label>
 
             <input
@@ -127,7 +125,9 @@ const NewBlog = () => {
               defaultValue={state.values?.url}
               required
               aria-invalid={!!state.errors?.url}
-              aria-describedby={state.errors?.url ? "url-error" : undefined}
+              aria-describedby={
+                state.errors?.url ? "url-error" : undefined
+              }
               className={inputStyle}
             />
 
@@ -138,22 +138,20 @@ const NewBlog = () => {
             )}
           </div>
 
-          {/* Submit button */}
           <div className="border-t border-gray-100 pt-6">
             <button
               type="submit"
+              data-testid="create-blog-button"
               className="w-full rounded-lg bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
             >
-              Create Blog
+              Create
             </button>
           </div>
-
         </form>
 
         <p className="mt-5 text-center text-xs text-gray-400">
           Please make sure the information is accurate before submitting.
         </p>
-
       </div>
     </main>
   )

@@ -23,7 +23,7 @@ const Blog = async ({
 
   return (
     <main className="min-h-screen bg-gray-50 px-6 py-12">
-      <article className="mx-auto max-w-3xl">
+      <article data-testid="blog-detail" className="mx-auto max-w-3xl">
 
         {/* Back navigation */}
         <Link
@@ -43,13 +43,16 @@ const Blog = async ({
               Blog article
             </p>
 
-            <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900 sm:text-4xl">
+            <h1
+              data-testid="blog-title"
+              className="text-3xl font-bold leading-tight tracking-tight text-gray-900 sm:text-4xl"
+            >
               {blog.title}
             </h1>
 
             <p className="mt-4 text-sm text-gray-500">
               Written by{" "}
-              <span className="font-semibold text-gray-800">
+              <span data-testid="blog-author" className="font-semibold text-gray-800">
                 {blog.author}
               </span>
             </p>
