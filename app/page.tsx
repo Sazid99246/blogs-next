@@ -1,4 +1,11 @@
+import Homepage from "./homepage.mdx"
+
 const Home = () => {
-  return <div>hello next.js</div>
+  return (
+    <div className="markdown">
+      <Homepage />
+    </div>
+  )
 }
+
 export default Home
