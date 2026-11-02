@@ -1,10 +1,11 @@
+import Link from "next/link"
 import { auth } from "@/auth"
 import { redirect } from "next/navigation"
 import { db } from "@/db"
 import { eq } from "drizzle-orm"
 import { readingLists, users } from "@/db/schema"
 import { generateToken } from "@/app/actions/users"
-import Link from "next/link"
+import MarkAsReadButton from "@/app/components/MarkAsReadButton"
 
 export default async function MePage() {
   const session = await auth()
@@ -63,41 +64,97 @@ export default async function MePage() {
         </div>
       </div>
       <section className="mt-10">
-        <h2 className="mb-4 text-2xl font-bold text-gray-900">
+        <h2 className="mb-6 text-2xl font-bold text-gray-900">
           My Reading List
         </h2>
 
-        {userReadingList.length === 0 ? (
-          <p className="rounded-xl border border-gray-200 bg-white p-6 text-gray-600">
-            Your reading list is empty.
-          </p>
-        ) : (
-          <div className="space-y-4">
-            {userReadingList.map((entry) => (
-              <div
-                key={entry.id}
-                className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm"
-              >
-                <h3 className="text-lg font-semibold text-gray-900">
-                  <Link
-                    href={`/blogs/${entry.blog.id}`}
-                    className="text-indigo-600 hover:text-indigo-800 hover:underline"
+        {/* Unread blogs */}
+        <div className="mb-8">
+          <h3 className="mb-4 text-xl font-semibold text-gray-800">
+            Unread
+          </h3>
+
+          {userReadingList.filter((entry) => !entry.read).length === 0 ? (
+            <p className="rounded-xl border border-gray-200 bg-white p-6 text-gray-600">
+              No unread blogs.
+            </p>
+          ) : (
+            <div className="space-y-4">
+              {userReadingList
+                .filter((entry) => !entry.read)
+                .map((entry) => (
+                  <div
+                    key={entry.id}
+                    className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm"
                   >
-                    {entry.blog.title}
-                  </Link>
-                </h3>
+                    <h4 className="text-lg font-semibold text-gray-900">
+                      <Link
+                        href={`/blogs/${entry.blog.id}`}
+                        className="text-indigo-600 hover:text-indigo-800 hover:underline"
+                      >
+                        {entry.blog.title}
+                      </Link>
+                    </h4>
 
-                <p className="mt-2 text-sm text-gray-600">
-                  By {entry.blog.author}
-                </p>
+                    <p className="mt-2 text-sm text-gray-600">
+                      By {entry.blog.author}
+                    </p>
 
-                <p className="mt-1 text-sm text-gray-500">
-                  Likes: {entry.blog.likes}
-                </p>
-              </div>
-            ))}
-          </div>
-        )}
+                    <p className="mt-1 text-sm text-gray-500">
+                      Likes: {entry.blog.likes}
+                    </p>
+
+                    <MarkAsReadButton blogId={entry.blog.id} />
+                  </div>
+                ))}
+            </div>
+          )}
+        </div>
+
+        {/* Read blogs */}
+        <div>
+          <h3 className="mb-4 text-xl font-semibold text-gray-800">
+            Read
+          </h3>
+
+          {userReadingList.filter((entry) => entry.read).length === 0 ? (
+            <p className="rounded-xl border border-gray-200 bg-white p-6 text-gray-600">
+              No read blogs yet.
+            </p>
+          ) : (
+            <div className="space-y-4">
+              {userReadingList
+                .filter((entry) => entry.read)
+                .map((entry) => (
+                  <div
+                    key={entry.id}
+                    className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm"
+                  >
+                    <h4 className="text-lg font-semibold text-gray-900">
+                      <Link
+                        href={`/blogs/${entry.blog.id}`}
+                        className="text-indigo-600 hover:text-indigo-800 hover:underline"
+                      >
+                        {entry.blog.title}
+                      </Link>
+                    </h4>
+
+                    <p className="mt-2 text-sm text-gray-600">
+                      By {entry.blog.author}
+                    </p>
+
+                    <p className="mt-1 text-sm text-gray-500">
+                      Likes: {entry.blog.likes}
+                    </p>
+
+                    <span className="mt-3 inline-block rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-700">
+                      Read
+                    </span>
+                  </div>
+                ))}
+            </div>
+          )}
+        </div>
       </section>
     </main>
   )

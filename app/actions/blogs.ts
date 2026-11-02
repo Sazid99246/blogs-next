@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation"
 import { revalidatePath } from "next/cache"
-import { addBlog, addLike, addToReadingList } from "../services/blogs"
+import { addBlog, addLike, addToReadingList, markBlogAsRead } from "../services/blogs"
 import { auth } from "@/auth"
 
 type BlogFormState = {
@@ -90,3 +90,9 @@ export const addBlogToReadingList = async (blogId: number) => {
 
   return added;
 };
+
+export const markBlogAsReadAction = async (blogId: number) => {
+  await markBlogAsRead(blogId)
+
+  revalidatePath("/me")
+}

@@ -1,4 +1,4 @@
-import { eq, sql } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import { db } from "../../db";
 import { blogs, readingLists } from "../../db/schema";
 import { getCurrentUser } from "./session";
@@ -77,3 +77,21 @@ export const addToReadingList = async (blogId: number) => {
 
   return true;
 };
+
+export const markBlogAsRead = async (blogId: number) => {
+  const user = await getCurrentUser()
+
+  if (!user) {
+    throw new Error("Not logged in")
+  }
+
+  await db
+    .update(readingLists)
+    .set({ read: true })
+    .where(
+      and(
+        eq(readingLists.userId, user.id),
+        eq(readingLists.blogId, blogId)
+      )
+    )
+}
